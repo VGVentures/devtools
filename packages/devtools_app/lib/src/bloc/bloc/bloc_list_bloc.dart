@@ -50,7 +50,7 @@ class BlocListBloc extends Bloc<BlocListEvent, BlocListState> {
     yield const BlocListLoadInProgress();
     try {
       final blocList = await _getBlocList();
-      yield BlocListLoadSuccess(blocList, null);
+      yield BlocListLoadSuccess(blocList);
     } catch (_) {
       yield const BlocListLoadFailure();
     }
