@@ -13,7 +13,7 @@ part 'bloc_list_state.dart';
 class BlocListBloc extends Bloc<BlocListEvent, BlocListState> {
   BlocListBloc() : super(const BlocListLoadInProgress()) {
     _evalOnDartLibrary = EvalOnDartLibrary(
-        ['package:flutter_bloc/flutter_bloc.dart'], serviceManager.service);
+        ['package:bloc/src/bloc_observer.dart'], serviceManager.service);
     _postEventSubscription =
         serviceManager.service.onExtensionEvent.where((event) {
       return event.extensionKind == 'bloc:bloc_map_changed';
