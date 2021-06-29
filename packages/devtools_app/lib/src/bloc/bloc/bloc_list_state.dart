@@ -13,7 +13,7 @@ class BlocListLoadInProgress extends BlocListState {
 }
 
 class BlocListLoadSuccess extends BlocListState {
-  const BlocListLoadSuccess(this.blocs, this.selectedBlocId)
+  const BlocListLoadSuccess(this.blocs, [this.selectedBlocId])
       : assert(blocs != null);
 
   final List<BlocObject> blocs;
