@@ -11,20 +11,23 @@ part 'bloc_list_event.dart';
 part 'bloc_list_state.dart';
 
 class BlocListBloc extends Bloc<BlocListEvent, BlocListState> {
-  BlocListBloc(this._evalOnDartLibrary)
-      : super(const BlocListLoadInProgress()) {
+  BlocListBloc() : super(const BlocListLoadInProgress()) {
+    _evalOnDartLibrary = EvalOnDartLibrary(
+        ['package:flutter_bloc/flutter_bloc.dart'], serviceManager.service);
     _postEventSubscription =
         serviceManager.service.onExtensionEvent.where((event) {
       return event.extensionKind == 'bloc:bloc_map_changed';
     }).listen((_) => add(const BlocListRequested()));
   }
 
-  final EvalOnDartLibrary _evalOnDartLibrary;
+  Disposable isAlive = Disposable();
+  EvalOnDartLibrary _evalOnDartLibrary;
   StreamSubscription<void> _postEventSubscription;
 
   @override
   Future<void> close() {
     _postEventSubscription.cancel();
+    isAlive.dispose();
     return super.close();
   }
 
@@ -63,9 +66,10 @@ class BlocListBloc extends Bloc<BlocListEvent, BlocListState> {
   Future<List<BlocObject>> _getBlocList() async {
     final observerRef = await _evalOnDartLibrary.safeEval(
       'Bloc.observer.blocMap',
-      isAlive: null,
+      isAlive: isAlive,
     );
-    final observers = await _evalOnDartLibrary.getInstance(observerRef, null);
+    final observers =
+        await _evalOnDartLibrary.getInstance(observerRef, isAlive);
     return observers.associations
         .where((e) => e.key is! Sentinel && e.value is! Sentinel)
         .map((e) => BlocObject(e.key.valueAsString, e.value.classRef.name))
