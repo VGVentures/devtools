@@ -14,6 +14,7 @@ import 'analytics/constants.dart' as analytics_constants;
 import 'analytics/provider.dart';
 import 'app_size/app_size_controller.dart';
 import 'app_size/app_size_screen.dart';
+import 'bloc/views/bloc_screen.dart';
 import 'common_widgets.dart';
 import 'config_specific/server/server.dart';
 import 'debugger/debugger_controller.dart';
@@ -605,6 +606,7 @@ class SettingsDialog extends StatelessWidget {
 List<DevToolsScreen> get defaultScreens {
   final vmDeveloperToolsController = VMDeveloperToolsController();
   return <DevToolsScreen>[
+    DevToolsScreen<void>(const BlocScreen(), createController: () {}),
     DevToolsScreen<InspectorSettingsController>(
       const InspectorScreen(),
       createController: () => InspectorSettingsController(),
