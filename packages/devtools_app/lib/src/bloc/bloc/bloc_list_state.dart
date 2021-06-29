@@ -1,15 +1,16 @@
 part of 'bloc_list_bloc.dart';
 
-abstract class BlocListState extends Equatable {
+abstract class BlocListState {
   const BlocListState();
-
-  @override
-  List<Object> get props => [];
 }
 
-class BlocListInitial extends BlocListState {}
+class BlocListInitial extends BlocListState {
+  const BlocListInitial();
+}
 
-class BlocListLoadInProgress extends BlocListState {}
+class BlocListLoadInProgress extends BlocListState {
+  const BlocListLoadInProgress();
+}
 
 class BlocListLoadSuccess extends BlocListState {
   const BlocListLoadSuccess(this.blocs, this.selectedBlocId)
@@ -17,9 +18,8 @@ class BlocListLoadSuccess extends BlocListState {
 
   final List<BlocObject> blocs;
   final String selectedBlocId;
-
-  @override
-  List<Object> get props => [blocs, selectedBlocId];
 }
 
-class BlocListLoadFailure extends BlocListState {}
+class BlocListLoadFailure extends BlocListState {
+  const BlocListLoadFailure();
+}
