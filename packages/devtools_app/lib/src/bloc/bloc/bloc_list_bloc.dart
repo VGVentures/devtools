@@ -11,7 +11,7 @@ part 'bloc_list_event.dart';
 part 'bloc_list_state.dart';
 
 class BlocListBloc extends Bloc<BlocListEvent, BlocListState> {
-  BlocListBloc() : super(const BlocListLoadInProgress()) {
+  BlocListBloc() : super(const BlocListInitial()) {
     _evalOnDartLibrary = EvalOnDartLibrary(
       ['package:bloc/src/bloc_observer.dart'],
       serviceManager.service,
