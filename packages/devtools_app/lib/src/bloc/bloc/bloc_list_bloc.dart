@@ -4,25 +4,25 @@ import 'package:bloc/bloc.dart';
 import 'package:vm_service/vm_service.dart';
 
 import '../../eval_on_dart_library.dart';
-import '../../globals.dart';
+import '../../vm_service_wrapper.dart';
 import '../models/bloc_object.dart';
 
 part 'bloc_list_event.dart';
 part 'bloc_list_state.dart';
 
 class BlocListBloc extends Bloc<BlocListEvent, BlocListState> {
-  BlocListBloc() : super(const BlocListInitial()) {
+  BlocListBloc(this._service) : super(const BlocListInitial()) {
     _evalOnDartLibrary = EvalOnDartLibrary(
       ['package:bloc/src/bloc_observer.dart'],
-      serviceManager.service,
+      _service,
     );
-    _postEventSubscription =
-        serviceManager.service.onExtensionEvent.where((event) {
+    _postEventSubscription = _service.onExtensionEvent.where((event) {
       return event.extensionKind == 'bloc:bloc_map_changed';
     }).listen((_) => add(const BlocListRequested()));
   }
 
   final _isAlive = Disposable();
+  final VmServiceWrapper _service;
   EvalOnDartLibrary _evalOnDartLibrary;
   StreamSubscription<void> _postEventSubscription;
 
