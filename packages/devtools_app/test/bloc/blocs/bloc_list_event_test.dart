@@ -3,17 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('BlocListEvent', () {
-    group('BlocListRequested', () {
-      test('supports value comparison', () {
-        expect(const BlocListRequested(), const BlocListRequested());
-      });
-    });
     group('BlocSelected', () {
-      test('supports value comparison', () {
-        expect(const BlocSelected('Bloc'), const BlocSelected('Bloc'));
-        expect(const BlocSelected('Bloc'), isNot(const BlocSelected('Mason')));
-      });
-      test('handles null', () {
+      test('throws AssertionError when selectedBlocId is null', () {
         expect(() => BlocSelected(null), throwsAssertionError);
       });
     });
