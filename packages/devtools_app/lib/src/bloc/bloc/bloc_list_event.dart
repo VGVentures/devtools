@@ -9,7 +9,7 @@ class BlocListRequested extends BlocListEvent {
 }
 
 class BlocSelected extends BlocListEvent {
-  const BlocSelected(this.selectedBlocId);
+  const BlocSelected(this.selectedBlocId) : assert(selectedBlocId != null);
 
   final String selectedBlocId;
 }

@@ -10,10 +10,10 @@ void main() {
           const BlocObject('1', 'Bloc'), isNot(const BlocObject('2', 'Mason')));
     });
 
-    test('handles null', () {
-      expect(const BlocObject('1', null), const BlocObject('1', null));
-      expect(const BlocObject(null, 'Bloc'), const BlocObject(null, 'Bloc'));
-      expect(const BlocObject(null, null), const BlocObject(null, null));
+    test('asserts not null', () {
+      expect(() => BlocObject('1', null), throwsAssertionError);
+      expect(() => BlocObject(null, 'Bloc'), throwsAssertionError);
+      expect(() => BlocObject(null, null), throwsAssertionError);
     });
   });
 }
