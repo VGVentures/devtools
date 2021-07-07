@@ -63,5 +63,4 @@ class BlocNodeBloc extends Bloc<BlocListEvent, BlocNodeState> {
 
     return blocState;
   }
-
 }
