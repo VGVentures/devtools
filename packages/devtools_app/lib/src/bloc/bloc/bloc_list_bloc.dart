@@ -41,7 +41,7 @@ class BlocListBloc extends Bloc<BlocListEvent, BlocListState> {
   }
 
   Stream<BlocListState> _mapBlocListRequestedToState(
-      BlocListRequested event) async* {
+      BlocListRequested event,) async* {
     try {
       final List<BlocNode> blocList = await _getBlocList();
       yield BlocListState(blocs: blocList, status: BlocListStatus.success);
