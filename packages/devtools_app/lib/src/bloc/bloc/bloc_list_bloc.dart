@@ -45,8 +45,7 @@ class BlocListBloc extends Bloc<BlocListEvent, BlocListState> {
     try {
       final List<BlocNode> blocList = await _getBlocList();
       yield BlocListState(blocs: blocList, status: BlocListStatus.success);
-    } catch (e) {
-      print(e);
+    } catch (_) {
       yield state.copyWith(status: BlocListStatus.failure);
     }
   }
