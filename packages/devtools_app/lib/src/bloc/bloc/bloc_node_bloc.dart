@@ -40,9 +40,7 @@ class BlocNodeBloc extends Bloc<BlocListEvent, BlocNodeState> {
         final Instance blocState = await _getBlocState(state.selectedBlocId);
         yield state.copyWith(
             selectedBlocId: state.selectedBlocId, selectedBlocState: blocState);
-      } catch (e) {
-        print(e);
-      }
+      } catch (_) {}
     }
   }
 
