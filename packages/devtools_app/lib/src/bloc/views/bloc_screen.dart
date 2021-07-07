@@ -5,6 +5,8 @@ import '../../eval_on_dart_library.dart';
 import '../../globals.dart';
 import '../../screen.dart';
 import '../bloc/bloc_list_bloc.dart';
+import '../bloc/bloc_list_event.dart';
+import '../bloc/bloc_list_state.dart';
 import '../bloc/bloc_node_bloc.dart';
 import '../widgets/bloc_error_view.dart';
 import '../widgets/bloc_initial_view.dart';
@@ -15,21 +17,13 @@ import '../widgets/bloc_loading_view.dart';
 class BlocScreen extends Screen {
   const BlocScreen()
       : super.conditional(
-            id: id,
-            requiresLibrary: 'package:flutter_bloc/',
-            title: 'Bloc',
-            icon: Icons.palette,);
+          id: id,
+          requiresLibrary: 'package:flutter_bloc/',
+          title: 'Bloc',
+          icon: Icons.palette,
+        );
 
   static const id = 'bloc';
-
-  @override
-  Widget build(BuildContext context) {
-    return const BlocScreenBody();
-  }
-}
-
-class BlocScreenBody extends StatelessWidget {
-  const BlocScreenBody({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +32,13 @@ class BlocScreenBody extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider<BlocListBloc>(
-            create: (context) {
-              final blocListBloc = BlocListBloc(evalOnDartLibrary, serviceManager.service);
-              blocListBloc.add(BlocListRequested());
-              return blocListBloc;
-            },
+            create: (context) =>
+                BlocListBloc(evalOnDartLibrary, serviceManager.service)
+                  ..add(BlocListRequested()),
           ),
           BlocProvider<BlocNodeBloc>(
-            create: (context) => BlocNodeBloc(evalOnDartLibrary, serviceManager.service),
+            create: (context) =>
+                BlocNodeBloc(evalOnDartLibrary, serviceManager.service),
           )
         ],
         child:

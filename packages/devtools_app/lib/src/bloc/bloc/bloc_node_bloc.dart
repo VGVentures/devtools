@@ -15,7 +15,7 @@ class BlocNodeBloc extends Bloc<BlocListEvent, BlocNodeState> {
   ) : super(const BlocNodeState()) {
     subscription = service.onExtensionEvent.where((event) {
       return event.extensionKind == 'bloc:bloc_map_changed';
-    }).listen((_) => add(BlocListUpdated()));
+    }).listen((_) => add(const BlocListUpdated()));
   }
   StreamSubscription subscription;
   final VmService service;
@@ -58,6 +58,6 @@ class BlocNodeBloc extends Bloc<BlocListEvent, BlocNodeState> {
     final blocStateRef = await evalOnDartLibrary.eval(
         'Bloc.observer.blocMap["$selectedBlocId"]?.state',
         isAlive: isAlive,);
-    return. evalOnDartLibrary.getInstance(blocStateRef, isAlive);
+    return evalOnDartLibrary.getInstance(blocStateRef, isAlive);
   }
 }

@@ -14,9 +14,7 @@ class BlocListBloc extends Bloc<BlocListEvent, BlocListState> {
       : super(const BlocListState()) {
     subscription = service.onExtensionEvent.where((event) {
       return event.extensionKind == 'bloc:bloc_map_changed';
-    }).listen((_) {
-      add(BlocListRequested());
-    });
+    }).listen((_) => add(BlocListRequested()));
   }
 
   final isAlive = Disposable();
@@ -41,7 +39,8 @@ class BlocListBloc extends Bloc<BlocListEvent, BlocListState> {
   }
 
   Stream<BlocListState> _mapBlocListRequestedToState(
-      BlocListRequested event,) async* {
+    BlocListRequested event,
+  ) async* {
     try {
       final List<BlocNode> blocList = await _getBlocList();
       yield BlocListState(blocs: blocList, status: BlocListStatus.success);
@@ -56,8 +55,8 @@ class BlocListBloc extends Bloc<BlocListEvent, BlocListState> {
         isAlive: isAlive);
     final blocMap = await evalOnDartLibrary.getInstance(blocMapRef, isAlive);
     return blocMap.associations
-      .where((a) => a.key is! Sentinel && a.value is! Sentinel)
-      .map((a) => BlocNode(a.key.valueAsString, a.value.classRef.name))
-      .toList();
+        .where((a) => a.key is! Sentinel && a.value is! Sentinel)
+        .map((a) => BlocNode(a.key.valueAsString, a.value.classRef.name))
+        .toList();
   }
 }
