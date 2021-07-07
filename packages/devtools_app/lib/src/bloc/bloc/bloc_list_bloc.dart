@@ -55,17 +55,9 @@ class BlocListBloc extends Bloc<BlocListEvent, BlocListState> {
     final blocMapRef = await evalOnDartLibrary.safeEval('Bloc.observer.blocMap',
         isAlive: isAlive);
     final blocMap = await evalOnDartLibrary.getInstance(blocMapRef, isAlive);
-    final List<BlocNode> blocs = [];
-    for (var element in blocMap.associations) {
-      final keyResult = element.key;
-      final valueResult = element.value;
-      if (keyResult is! Sentinel && valueResult is! Sentinel) {
-        final elementId = element.key.valueAsString;
-        final elementType = element.value.classRef.name;
-        final BlocNode next = BlocNode(elementId, elementType);
-        blocs.add(next);
-      }
-    }
-    return blocs;
+    return blocMap.associates
+      .where((a) => a.key is! Sentinel && a.value is! Sentinel)
+      .map((a) => BlocNode(a.key.valueAsString, a.value.classRef.name))
+      .toList();
   }
 }
