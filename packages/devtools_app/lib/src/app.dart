@@ -14,6 +14,7 @@ import 'analytics/constants.dart' as analytics_constants;
 import 'analytics/provider.dart';
 import 'app_size/app_size_controller.dart';
 import 'app_size/app_size_screen.dart';
+import 'bloc/views/bloc_screen.dart';
 import 'common_widgets.dart';
 import 'config_specific/server/server.dart';
 import 'debugger/debugger_controller.dart';
@@ -641,6 +642,7 @@ List<DevToolsScreen> get defaultScreens {
       createController: () => LoggingController(),
     ),
     DevToolsScreen<void>(const ProviderScreen(), createController: () {}),
+    DevToolsScreen<void>(const BlocScreen(), createController: () {}),
     DevToolsScreen<AppSizeController>(
       const AppSizeScreen(),
       createController: () => AppSizeController(),
