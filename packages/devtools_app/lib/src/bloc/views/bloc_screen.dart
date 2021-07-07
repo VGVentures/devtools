@@ -20,7 +20,7 @@ class BlocScreen extends Screen {
             id: id,
             requiresLibrary: 'package:flutter_bloc/',
             title: 'Bloc',
-            icon: Icons.palette);
+            icon: Icons.palette,);
 
   static const id = 'bloc';
 
