@@ -18,4 +18,6 @@ class BlocSelected extends BlocListEvent {
   List<Object> get props => [selectedBlocId];
 }
 
-class BlocListUpdated extends BlocListEvent {}
+class BlocListUpdated extends BlocListEvent {
+  const BlocListUpdated();
+}
