@@ -5,6 +5,7 @@ import '../../eval_on_dart_library.dart';
 import '../../globals.dart';
 import '../../screen.dart';
 import '../bloc/bloc_list_bloc.dart';
+import '../bloc/bloc_list_event.dart';
 import '../bloc/bloc_list_state.dart';
 import '../bloc/bloc_node_bloc.dart';
 import '../widgets/bloc_error_view.dart';
@@ -39,7 +40,11 @@ class BlocScreenBody extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider<BlocListBloc>(
-            create: (context) => BlocListBloc(evalOnDartLibrary, serviceManager.service),
+            create: (context) {
+              final blocListBloc = BlocListBloc(evalOnDartLibrary, serviceManager.service);
+              blocListBloc.add(BlocListRequested());
+              return blocListBloc;
+            },
           ),
           BlocProvider<BlocNodeBloc>(
             create: (context) => BlocNodeBloc(evalOnDartLibrary, serviceManager.service),

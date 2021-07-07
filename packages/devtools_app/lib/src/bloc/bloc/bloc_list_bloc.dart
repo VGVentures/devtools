@@ -17,7 +17,6 @@ class BlocListBloc extends Bloc<BlocListEvent, BlocListState> {
     }).listen((_) {
       add(BlocListRequested());
     });
-    add(BlocListRequested());
   }
 
   final isAlive = Disposable();
@@ -28,6 +27,7 @@ class BlocListBloc extends Bloc<BlocListEvent, BlocListState> {
   @override
   Future<void> close() {
     subscription.cancel();
+    isAlive.dispose();
     return super.close();
   }
 
