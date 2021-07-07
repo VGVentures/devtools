@@ -57,7 +57,7 @@ class BlocNodeBloc extends Bloc<BlocListEvent, BlocNodeState> {
   Future<Instance> _getBlocState(String selectedBlocId) async {
     final blocStateRef = await evalOnDartLibrary.eval(
         'Bloc.observer.blocMap["$selectedBlocId"]?.state',
-        isAlive: isAlive);
+        isAlive: isAlive,);
     final blocState =
         await evalOnDartLibrary.getInstance(blocStateRef, isAlive);
 
